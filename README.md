@@ -2,6 +2,21 @@
 
 Splashcii is a simple command-line tool that queries and displays a random ascii art from [Asciiur](https://www.asciiur.com/)
 
+## Install
+
+Use your favorite package manager to install `splashcii`
+
+```shell
+$ npm install -g splashcii
+...
+
+$ yarn global add splashcii
+...
+
+$ pnpm add -g splashcii
+...
+```
+
 ## Usage
 
 ```shell
