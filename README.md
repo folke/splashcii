@@ -19,6 +19,8 @@ Query results are cached, so they're only fetched once, the first time you searc
 
 Example to use a random **halloween** ascii-art for your doom banner. Make sure `splascii` is on your path.
 
+![Doom Emacs](assets/doom-emacs.png)
+
 ```elisp
 (defvar +fl/splashcii-query ""
   "The query to search on asciiur.com")
