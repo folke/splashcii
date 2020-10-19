@@ -65,7 +65,10 @@ async function search(query: string): Promise<AsciiArt[]> {
 async function searchOne(query: string) {
   const arts = await search(query)
   if (!arts.length) return
-  const art = arts[Math.floor(Math.random() * arts.length)].body
+  const art = arts[Math.floor(Math.random() * arts.length)].body.replace(
+    "\r",
+    ""
+  )
   const lines = art.split(/\r?\n/)
   const width = Math.max(...lines.map((l) => l.length))
   console.log(lines.map((l) => l.padEnd(width, " ")).join("\n"))
