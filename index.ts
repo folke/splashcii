@@ -66,7 +66,7 @@ async function searchOne(query: string) {
   const arts = await search(query)
   if (!arts.length) return
   const art = arts[Math.floor(Math.random() * arts.length)].body.replace(
-    "\r",
+    /\r/g,
     ""
   )
   const lines = art.split(/\r?\n/)
