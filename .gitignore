@@ -2,3 +2,5 @@ node_modules
 .ultra.cache.json
 cache
 index.js
+.DS_Store
+.log
