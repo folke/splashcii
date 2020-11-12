@@ -1,27 +1,3 @@
-// #!/usr/bin/env bash
-// set -e
-
-// ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && cd .. && pwd)"
-// CACHE="$ROOT/cache"
-// mkdir -p $CACHE
-
-// search() {
-// 	FILE="$CACHE/$(echo "$@" | sed -E 's/[^a-z]+/-/ig').json"
-// 	[ -f "$FILE" ] ||
-// 		curl -s "https://www.asciiur.com/api/" -G --data-urlencode "q=$1" >$FILE
-// 	echo $FILE
-// }
-
-// one() {
-// 	f=$(search "$1")
-// 	len=$(jq "length" "$f")
-// 	choice=$(($RANDOM % $len))
-// 	art=$(jq ".[$choice].body" --raw-output "$f" | sed "s/\r//g")
-// 	width=$(echo "$art" | awk '{print length}' | sort -nr | head -1)
-// 	echo "$art" | awk "{printf(\"%-${width}s\n\", \$0)}"
-// }
-
-// one "$@"
 import fetch from "node-fetch"
 import path from "path"
 import fs from "fs"
@@ -74,4 +50,35 @@ async function searchOne(query: string) {
   console.log(lines.map((l) => l.padEnd(width, " ")).join("\n"))
 }
 
-searchOne(process.argv.slice(2).join(" "))
+function run() {
+  const args = process.argv.slice(2)
+  for (const a of args) {
+    if (a.startsWith("-")) {
+      args.shift()
+      switch (a) {
+        case "-c":
+        case "--cache":
+          return console.log(path.resolve(__dirname, "cache"))
+        case "-h":
+        case "--help":
+          console.log("splashcii keyword1 [keyword2] ...")
+          console.log(
+            "  --cache|-c   prints the cache directory. Simply delete it to clear the cache"
+          )
+          return
+
+        default:
+          if (a.startsWith("-")) throw new Error(`Invalid option ${a}`)
+      }
+    }
+  }
+  console.log(args)
+  return searchOne(args.join(" "))
+}
+
+try {
+  run()
+} catch (error) {
+  console.error("error: " + error.message)
+  process.exit(1)
+}
