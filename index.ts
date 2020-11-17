@@ -72,7 +72,6 @@ function run() {
       }
     }
   }
-  console.log(args)
   return searchOne(args.join(" "))
 }
 
