@@ -40,22 +40,17 @@ Example to use a random **halloween** ascii-art for your doom banner. Make sure 
 (defvar +fl/splashcii-query ""
   "The query to search on asciiur.com")
 
-(defun +fl/splashcii ()
-  (split-string (with-output-to-string
-                  (call-process "splashcii" nil standard-output nil +fl/splashcii-query))
-                "\n" t))
+(defun +fl/splashcii-banner ()
+  (mapc (lambda (line)
+          (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
+                              'face 'doom-dashboard-banner) " ")
+          (insert "\n"))
+        (split-string (with-output-to-string
+                        (call-process "splashcii" nil standard-output nil +fl/splashcii-query))
+                      "\n" t))
+  (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0) ?\n)))
 
-(defun +fl/doom-banner ()
-  (let ((point (point)))
-    (mapc (lambda (line)
-            (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
-                                'face 'doom-dashboard-banner) " ")
-            (insert "\n"))
-          (+fl/splashcii))
-    (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0) ?\n))))
+(setq +doom-dashboard-ascii-banner-fn #'+fl/splashcii-banner)
 
-;; override the first doom dashboard function
-(setcar (nthcdr 0 +doom-dashboard-functions) #'+fl/doom-banner)
-
-(setq +fl/splashcii-query "halloween")
+(setq +fl/splashcii-query "christmas")
 ```
