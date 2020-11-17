@@ -47,8 +47,7 @@ Example to use a random **halloween** ascii-art for your doom banner. Make sure 
           (insert "\n"))
         (split-string (with-output-to-string
                         (call-process "splashcii" nil standard-output nil +fl/splashcii-query))
-                      "\n" t))
-  (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0) ?\n)))
+                      "\n" t)))
 
 (setq +doom-dashboard-ascii-banner-fn #'+fl/splashcii-banner)
 
