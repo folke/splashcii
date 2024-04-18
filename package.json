@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/eslint": "7.2.4",
+    "@types/eslint": "8.56.10",
     "@types/eslint-plugin-prettier": "3.1.0",
     "@types/node-fetch": "2.5.7",
     "@types/prettier": "2.1.5",
